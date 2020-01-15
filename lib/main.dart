@@ -27,7 +27,8 @@ class _State extends State<MyApp> {
   }
 
   requestPermission() async {
-    bool res = await SimplePermissions.requestPermission(permission);
+    //bool res = await SimplePermissions.requestPermission(permission);
+    final res = await SimplePermissions.requestPermission(permission);
     print('Permissiosn result is ${res.toString()}');
 
     setState(() {
@@ -36,7 +37,8 @@ class _State extends State<MyApp> {
   }
 
   checkPermission() async {
-    bool res = await SimplePermissions.checkPermission(permission);
+    //bool res = await SimplePermissions.checkPermission(permission);
+    final res = await SimplePermissions.checkPermission(permission);
     print('Permissiosn result is ${res.toString()}');
 
     setState(() {
@@ -45,6 +47,7 @@ class _State extends State<MyApp> {
   }
 
   getPermissionStatus() async {
+    //bool res = await SimplePermissions.getPermissionStatus(permission);
     final res = await SimplePermissions.getPermissionStatus(permission);
     print('Permissiosn result is ${res.toString()}');
 
