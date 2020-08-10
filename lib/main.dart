@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:simple_permissions/simple_permissions.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -28,8 +28,8 @@ class _State extends State<MyApp> {
 
   requestPermission() async {
     //bool res = await SimplePermissions.requestPermission(permission);
-    final res = await SimplePermissions.requestPermission(permission);
-    print('Permissiosn result is ${res.toString()}');
+    final res = await permission.request().isGranted;
+    print('Permission result is ${res.toString()}');
 
     setState(() {
       status = '${permission.toString()} = ${res.toString()}';
@@ -38,8 +38,8 @@ class _State extends State<MyApp> {
 
   checkPermission() async {
     //bool res = await SimplePermissions.checkPermission(permission);
-    final res = await SimplePermissions.checkPermission(permission);
-    print('Permissiosn result is ${res.toString()}');
+    final res = await permission.isGranted;
+    print('Permission result is ${res.toString()}');
 
     setState(() {
       status = '${permission.toString()} = ${res.toString()}';
@@ -48,8 +48,8 @@ class _State extends State<MyApp> {
 
   getPermissionStatus() async {
     //bool res = await SimplePermissions.getPermissionStatus(permission);
-    final res = await SimplePermissions.getPermissionStatus(permission);
-    print('Permissiosn result is ${res.toString()}');
+    final res = await permission.status;
+    print('Permission result is ${res.toString()}');
 
     setState(() {
       status = '${permission.toString()} = ${res.toString()}';
@@ -68,7 +68,8 @@ class _State extends State<MyApp> {
   List<DropdownMenuItem<Permission>> _getDropDownItems() {
     List<DropdownMenuItem<Permission>> items = new List<DropdownMenuItem<Permission>>();
     Permission.values.forEach((permission) {
-      var item = new DropdownMenuItem(child: new Text(getPermissionString(permission)), value: permission,);
+      final name = permission.toString();
+      var item = new DropdownMenuItem(child: new Text(name.substring(name.indexOf('.')+1)), value: permission,);
       items.add(item);
     });
 
@@ -93,7 +94,7 @@ class _State extends State<MyApp> {
               new RaisedButton(onPressed: checkPermission, child: new Text('Check Permission'),),
               new RaisedButton(onPressed: requestPermission, child: new Text('Request Permission'),),
               new RaisedButton(onPressed: getPermissionStatus, child: new Text('Get Status'),),
-              new RaisedButton(onPressed: SimplePermissions.openSettings, child: new Text('Open Settings'),),
+              new RaisedButton(onPressed: openAppSettings, child: new Text('Open Settings'),),
             ],
           ),
         )
